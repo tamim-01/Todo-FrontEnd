@@ -1,8 +1,9 @@
+import { LogInPage } from "./pages/login.jsx";
 function App() {
   return (
-    <div className="App">
-      <h1>salam sepehr</h1>
-    </div>
+    <>
+      <LogInPage />
+    </>
   );
 }
 
