@@ -1,7 +1,12 @@
 import React from "react";
 import TaskItem from "./TaskItem";
 
-const TaskList = ({ tasks, onDeleteTask, onEditTask }) => {
+const TaskList = ({
+  tasks,
+  onDeleteTask,
+  onEditTask,
+  onToggleTaskCompletion,
+}) => {
   return (
     <div className="w-3/4 h-min p-6 m-6 border-2 rounded-2xl">
       <div className="flex justify-between items-center mb-6">
@@ -14,6 +19,7 @@ const TaskList = ({ tasks, onDeleteTask, onEditTask }) => {
             task={task}
             onDelete={onDeleteTask}
             onEdit={onEditTask}
+            onToggleCompletion={onToggleTaskCompletion} // Pass the new prop
           />
         ))}
       </div>
