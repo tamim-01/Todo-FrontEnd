@@ -1,10 +1,7 @@
-import { LogInPage } from "./pages/login.jsx";
+import TaskTracker from "./pages/Add-TaskPage.jsx"; // Import using 'default'
+
 function App() {
-  return (
-    <>
-      <LogInPage />
-    </>
-  );
+  return <TaskTracker />;
 }
 
 export default App;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Header from "./header";
+import Header from "../components/header";
 import { DayPicker, getDefaultClassNames } from "react-day-picker";
 
 import "react-day-picker/style.css";
