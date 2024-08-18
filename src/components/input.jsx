@@ -1,12 +1,62 @@
-export function Input ({type , id , name , style , placeholder , onChangeHandler , stateValue}){
+import * as React from 'react';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+export function Input({ error, type, id, name, style, placeholder, onChangeHandler, stateValue }) {
     return (
-        <input
-                type={type}
-                name={name}
-                className={`${style} w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
-                placeholder={placeholder}
-                value={stateValue}
-                onChange={onChangeHandler}
-              />
-    )
+        <TextField
+            required
+            error={error}
+            id={id || "outlined-required"}
+            label={name}
+            name={name}
+            value={stateValue}
+            onChange={onChangeHandler}
+            placeholder={placeholder}
+            type={type}
+            className={'w-full p-6 md:p-0'}
+        />
+    );
+}
+
+export function PasswordInput({ error, id, name, placeholder, onChangeHandler, stateValue }) {
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    const handleClickShowPassword = () => setShowPassword(!showPassword);
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
+    return (
+        <TextField
+            required
+            error={error}
+            id={id || "outlined-password-input"}
+            label={name}
+            name={name}
+            value={stateValue}
+            onChange={onChangeHandler}
+            placeholder={placeholder}
+            type={showPassword ? 'text' : 'password'}
+            className={'w-full p-6 md:p-0'}
+            InputProps={{
+                endAdornment: (
+                    <InputAdornment position="end">
+                        <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                        >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                    </InputAdornment>
+                ),
+            }}
+        />
+    );
 }
