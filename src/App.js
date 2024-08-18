@@ -1,8 +1,9 @@
-import { LogInPage } from "./pages/login.jsx";
+import { SigninPage } from "./pages/signin.jsx";
+import { SignupPage } from "./pages/signup.jsx";
 function App() {
   return (
     <>
-      <LogInPage />
+      <SignupPage />
     </>
   );
 }
