@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "../components/HomePage_Header";
 import TaskList from "../components/TaskList";
 import { json, useNavigate } from "react-router-dom"; // Import useNavigate
 
 const TaskManager = () => {
   const [tasks, setTasks] = useState([]);
+  const upcomingTasksRef = useRef(null); // Ref for upcoming tasks section
+  const completedTasksRef = useRef(null); // Ref for completed tasks section
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -37,6 +39,9 @@ const TaskManager = () => {
 
     fetchTasks();
   }, []);
+
+  const incompleteTasks = tasks.filter((task) => !task.is_completed);
+  const completedTasks = tasks.filter((task) => task.is_completed);
 
   const navigate = useNavigate();
 
@@ -108,23 +113,55 @@ const TaskManager = () => {
 
     console.log("Toggle task completion for id:", id);
   };
+
+  const scrollToUpcomingTasks = () => {
+    if (upcomingTasksRef.current) {
+      upcomingTasksRef.current.scrollIntoView({ behavior: "smooth" });
+    } else {
+      console.warn("Upcoming tasks section does not exist.");
+    }
+  };
+
+  const scrollToCompletedTasks = () => {
+    if (completedTasksRef.current) {
+      completedTasksRef.current.scrollIntoView({ behavior: "smooth" });
+    } else {
+      console.warn("Completed tasks section does not exist.");
+    }
+  };
+
   return (
     <div>
       <Header />
       <div className="flex h-full bg-gray-50">
-        <div className="w-1/4 m-6 mr-0 border-2xl border-gray-200">
+        <div className="w-1/4 flex flex-col gap-4 m-6 mr-0 border-2xl border-gray-200">
           <button
             onClick={addTask}
             className="w-full bg-blue-500 text-white py-3 rounded-xl hover:bg-blue-600 transition-colors text-lg"
           >
             Add Task
           </button>
+          <button
+            onClick={scrollToUpcomingTasks} // Scroll to upcoming tasks
+            className="w-full bg-blue-500 text-white py-3 rounded-xl hover:bg-blue-600 transition-colors text-lg"
+          >
+            Upcoming
+          </button>
+          <button
+            onClick={scrollToCompletedTasks} // Scroll to completed tasks
+            className="w-full bg-blue-500 text-white py-3 rounded-xl hover:bg-blue-600 transition-colors text-lg"
+          >
+            Completed Tasks
+          </button>
         </div>
         <TaskList
-          tasks={tasks}
+          incompleteTasks={incompleteTasks}
+          completedTasks={completedTasks}
           onDeleteTask={deleteTask}
           onEditTask={editTask}
           onToggleTaskCompletion={toggleTaskCompletion}
+          upcomingTasksRef={upcomingTasksRef}
+          completedTasksRef={completedTasksRef}
         />
       </div>
     </div>
