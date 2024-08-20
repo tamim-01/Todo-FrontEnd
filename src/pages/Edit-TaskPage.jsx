@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/header";
 import { DayPicker, getDefaultClassNames } from "react-day-picker";
-import "react-day-picker/style.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom"; // Import useLocation
 
-const Addtask = () => {
-  const [selected, setSelected] = useState(new Date());
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const navigate = useNavigate();
+import "react-day-picker/style.css";
+
+const Edittask = () => {
+  const location = useLocation(); // Get the location object
+  const { task } = location.state || {}; // Retrieve the task data from state
+
+  const [selected, setSelected] = useState(
+    task ? new Date(task.taskdate) : new Date()
+  );
+  const [title, setTitle] = useState(task ? task.title : "");
+  const [description, setDescription] = useState(task ? task.description : "");
 
   const defaultClassNames = getDefaultClassNames();
 
@@ -24,25 +29,23 @@ const Addtask = () => {
     const taskdate = formatDate(selected); // Use the correct key here
 
     try {
-      const response = await fetch("http://localhost:3000/api/tasks", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ title, description, taskdate }), // Ensure key is 'taskdate'
-      });
+      const response = await fetch(
+        `http://localhost:3000/api/tasks/${task.id}`,
+        {
+          method: "PUT", // Use PUT to update the task
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ title, description, taskdate }), // Ensure key is 'taskdate'
+        }
+      );
 
       if (response.ok) {
-        console.log("Task added successfully");
-        console.log(selected);
-        // Clear the form fields
-        setTitle("");
-        setDescription("");
-        setSelected(new Date());
-        navigate("/taskmanager");
+        console.log("Task updated successfully");
+        // Clear the form fields or redirect as needed
       } else {
-        console.error("Error adding task:", response.statusText);
+        console.error("Error updating task:", response.statusText);
       }
     } catch (error) {
       console.error("Network error:", error);
@@ -57,7 +60,7 @@ const Addtask = () => {
           <div className="flex flex-col lg:flex-row gap-8 xl:gap-10">
             <div className="flex-1">
               <h2 className="text-2xl sm:text-3xl font-semibold mb-6 sm:mb-8 text-center">
-                Add a new task
+                Edit a task
               </h2>
               <div className="mb-4">
                 <label className="block mb-2 sm:mb-3 text-xl sm:text-2xl font-medium">
@@ -112,4 +115,4 @@ const Addtask = () => {
   );
 };
 
-export default Addtask;
+export default Edittask;

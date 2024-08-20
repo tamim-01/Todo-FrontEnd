@@ -17,6 +17,7 @@ const TaskList = ({
           <TaskItem
             key={task.id}
             task={task}
+            date={task}
             onDelete={onDeleteTask}
             onEdit={onEditTask}
             onToggleCompletion={onToggleTaskCompletion} // Pass the new prop
