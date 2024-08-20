@@ -1,194 +1,113 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/HomePage_Header";
 import TaskList from "../components/TaskList";
+import { json, useNavigate } from "react-router-dom"; // Import useNavigate
 
 const TaskManager = () => {
-  const [tasks, setTasks] = useState([
-    {
-      id: 13,
-      user_id: 14,
-      title: "new task",
-      description: "random text",
-      taskdate: "2024-07-11T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 14,
-      user_id: 14,
-      title: "test",
-      description: "random text",
-      taskdate: "2024-07-11T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 15,
-      user_id: 14,
-      title: "Task 15",
-      description: "Random text 15",
-      taskdate: "2024-07-11T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 16,
-      user_id: 14,
-      title: "Task 16",
-      description: "Random text 16",
-      taskdate: "2024-07-12T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 17,
-      user_id: 14,
-      title: "Task 17",
-      description: "Random text 17",
-      taskdate: "2024-07-13T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 18,
-      user_id: 14,
-      title: "Task 18",
-      description: "Random text 18",
-      taskdate: "2024-07-14T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 19,
-      user_id: 14,
-      title: "Task 19",
-      description: "Random text 19",
-      taskdate: "2024-07-15T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 20,
-      user_id: 14,
-      title: "Task 20",
-      description: "Random text 20",
-      taskdate: "2024-07-16T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 21,
-      user_id: 14,
-      title: "Task 21",
-      description: "Random text 21",
-      taskdate: "2024-07-17T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 22,
-      user_id: 14,
-      title: "Task 22",
-      description: "Random text 22",
-      taskdate: "2024-07-18T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 23,
-      user_id: 14,
-      title: "Task 23",
-      description: "Random text 23",
-      taskdate: "2024-07-19T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 24,
-      user_id: 14,
-      title: "Task 24",
-      description: "Random text 24",
-      taskdate: "2024-07-20T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 25,
-      user_id: 14,
-      title: "Task 25",
-      description: "Random text 25",
-      taskdate: "2024-07-21T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 26,
-      user_id: 14,
-      title: "Task 26",
-      description: "Random text 26",
-      taskdate: "2024-07-22T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 27,
-      user_id: 14,
-      title: "Task 27",
-      description: "Random text 27",
-      taskdate: "2024-07-23T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 28,
-      user_id: 14,
-      title: "Task 28",
-      description: "Random text 28",
-      taskdate: "2024-07-24T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 29,
-      user_id: 14,
-      title: "Task 29",
-      description: "Random text 29",
-      taskdate: "2024-07-25T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 30,
-      user_id: 14,
-      title: "Task 30",
-      description: "Random text 30",
-      taskdate: "2024-07-26T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 31,
-      user_id: 14,
-      title: "Task 31",
-      description: "Random text 31",
-      taskdate: "2024-07-27T20:30:00.000Z",
-      is_completed: false,
-    },
-    {
-      id: 32,
-      user_id: 14,
-      title: "Task 32",
-      description: "Random text 32",
-      taskdate: "2024-07-28T20:30:00.000Z",
-      is_completed: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const username = "user18"; // Username to be passed as a query parameter
+        const response = await fetch(
+          `http://localhost:3000/api/tasks?username=${username}`,
+          {
+            method: "GET", // Use GET method
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setTasks(data);
+        } else {
+          const errorData = await response.json();
+          console.error("Error fetching tasks:", errorData.message); // Log the error message from the server
+        }
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      }
+    };
+
+    fetchTasks();
+  }, []);
+
+  const navigate = useNavigate();
 
   const addTask = () => {
-    // Implement add task functionality
     console.log("Add task clicked");
+    navigate("/Addtaskpage");
   };
 
-  const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+  const deleteTask = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`http://localhost:3000/api/tasks/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setTasks(tasks.filter((task) => task.id !== id));
+      } else {
+        const errorData = await response.json();
+        console.error("Error deleting task:", errorData.message); // Log the error message from the server
+      }
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
   };
 
   const editTask = (id) => {
-    // Implement edit task functionality
+    const taskToEdit = tasks.find((task) => task.id === id);
+    navigate("/Edittask", { state: { task: taskToEdit } });
     console.log("Edit task clicked for id:", id);
   };
 
-  const toggleTaskCompletion = (id) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, is_completed: !task.is_completed } : task
-      )
-    );
-    console.log("Edit task clicked for id:", id); // Log when checkbox is toggled
-  };
+  const toggleTaskCompletion = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`http://localhost:3000/api/tasks/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          is_completed: !tasks.find((task) => task.id === id).is_completed, // Toggle the completion status
+        }),
+      });
 
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setTasks(
+          tasks.map((task) =>
+            task.id === id
+              ? { ...task, is_completed: !task.is_completed } // Update the task with the toggled status
+              : task
+          )
+        );
+      } else {
+        const errorData = await response.json();
+        console.error("Error checking the task completed:", errorData.message); // Log the error message from the server
+      }
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+
+    console.log("Toggle task completion for id:", id);
+  };
   return (
     <div>
       <Header />
@@ -205,7 +124,7 @@ const TaskManager = () => {
           tasks={tasks}
           onDeleteTask={deleteTask}
           onEditTask={editTask}
-          onToggleTaskCompletion={toggleTaskCompletion} // Pass the new function
+          onToggleTaskCompletion={toggleTaskCompletion}
         />
       </div>
     </div>

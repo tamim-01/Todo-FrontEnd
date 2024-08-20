@@ -2,6 +2,30 @@ import React from "react";
 import { Trash2, PenSquare } from "lucide-react";
 
 const TaskItem = ({ task, onDelete, onEdit, onToggleCompletion }) => {
+  // Function to calculate the days until the task date
+  const getDaysLeft = (taskDate) => {
+    const today = new Date();
+    const taskDate2 = new Date(taskDate);
+    const timeDiff = taskDate2.getTime() - today.getTime();
+    const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+    return daysLeft;
+  };
+
+  // Function to get the display text based on the task date
+  const getDisplayText = (taskDate) => {
+    const daysLeft = getDaysLeft(taskDate);
+    if (daysLeft > 0) {
+      return `${daysLeft} day${daysLeft !== 1 ? "s" : ""} left`;
+    } else if (daysLeft === 0) {
+      return "Today";
+    } else {
+      return `${Math.abs(daysLeft)} day${
+        Math.abs(daysLeft) !== 1 ? "s" : ""
+      } passed`;
+    }
+  };
+
   return (
     <div className="bg-white p-4 rounded-lg shadow flex items-center justify-between">
       <div>
@@ -9,6 +33,7 @@ const TaskItem = ({ task, onDelete, onEdit, onToggleCompletion }) => {
         <p className="text-lg text-gray-500">{task.description}</p>
       </div>
       <div className="flex items-center gap-2">
+        <p>{getDisplayText(task.taskdate)}</p>
         <input
           type="checkbox"
           checked={task.is_completed}
