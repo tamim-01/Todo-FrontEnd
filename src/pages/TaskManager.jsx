@@ -111,7 +111,7 @@ const TaskManager = () => {
   return (
     <div>
       <Header />
-      <div className="flex h-full bg-gray-100">
+      <div className="flex h-full bg-gray-50">
         <div className="w-1/4 m-6 mr-0 border-2xl border-gray-200">
           <button
             onClick={addTask}
