@@ -27,10 +27,26 @@ const TaskItem = ({ task, onDelete, onEdit, onToggleCompletion }) => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow flex items-center justify-between">
+    <div
+      className={`${
+        task.is_completed ? "bg-gray-100" : "bg-white"
+      } p-4 rounded-lg shadow-md flex items-center justify-between`}
+    >
       <div>
-        <h3 className="font-medium text-xl mb-1">{task.title}</h3>
-        <p className="text-lg text-gray-500">{task.description}</p>
+        <h3
+          className={`font-medium text-xl mb-1 ${
+            task.is_completed ? "line-through text-gray-500" : ""
+          }`}
+        >
+          {task.title}
+        </h3>
+        <p
+          className={`text-lg ${
+            task.is_completed ? "line-through text-gray-400" : "text-gray-600"
+          }`}
+        >
+          {task.description}
+        </p>
       </div>
       <div className="flex items-center gap-2">
         <p>{getDisplayText(task.taskdate)}</p>
@@ -41,11 +57,11 @@ const TaskItem = ({ task, onDelete, onEdit, onToggleCompletion }) => {
           className="my-auto w-5 h-5 rounded-3xl"
         />
         <button
-          className="text-blue-500 hover:text-blue-700 "
+          className="text-blue-500 hover:text-blue-700"
           onClick={() => onEdit(task.id)}
         >
           <PenSquare size={24} />
-        </button>{" "}
+        </button>
         <button
           className="text-red-500 hover:text-red-700 -ml-0.5"
           onClick={() => onDelete(task.id)}
