@@ -3,8 +3,9 @@ import { Input , PasswordInput } from "./input.jsx";
 import { useState } from "react";
 import { signupApi } from "../model/index.js";
 import Alert from '@mui/material/Alert';
-
+import { useNavigate } from "react-router-dom";
 export default function SignupForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -91,9 +92,12 @@ export default function SignupForm() {
           password: formData.password
         });
         if (response) {
+         
+          
           setAlert(<Alert severity="error">Username is already selected. Choose another username</Alert>);
         } else {
           setAlert(<Alert severity="success">Sign up was successful</Alert>);
+          navigate("/");
         }
       } catch (err) {
         console.error("Error during signup:", err);
@@ -111,6 +115,7 @@ export default function SignupForm() {
         {alert && <div>{alert}</div>}
         <div>
           <Input
+          required={true}
             onChangeHandler={handleChange}
             type="text"
             value={formData.username}
@@ -125,6 +130,7 @@ export default function SignupForm() {
         </div>
         <div>
           <PasswordInput
+          required={true}
             onChangeHandler={handleChange}
             type="password"
             name="password"
@@ -139,6 +145,7 @@ export default function SignupForm() {
         </div>
         <div>
           <PasswordInput
+          required={true}
             onChangeHandler={handleChange}
             type="password"
             name="confirmPassword"
@@ -153,7 +160,7 @@ export default function SignupForm() {
         </div>
         
         <p className="text-center">
-          Do you have an account? <a href="#">Sign in!</a>
+          Do you have an account? <a  onClick={()=>{ navigate("/")}}>Sign in!</a>
         </p>
 
         <div>

@@ -3,7 +3,7 @@ import { Input, PasswordInput } from "../components/input.jsx";
 import { useState } from "react";
 import { signinApi } from "../model/index.js";
 import Alert from "@mui/material/Alert";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom"; 
 
 export default function SigninForm() {
   const [formData, setFormData] = useState({
@@ -12,7 +12,7 @@ export default function SigninForm() {
   });
 
   const [alert, setAlert] = useState(<></>);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,6 +54,7 @@ export default function SigninForm() {
         <div>{alert}</div>
         <div>
           <Input
+          required={true}
             onChangeHandler={handleChange}
             type="text"
             value={formData.username}
@@ -63,6 +64,7 @@ export default function SigninForm() {
         </div>
         <div>
           <PasswordInput
+          required={true}
             onChangeHandler={handleChange}
             type="password"
             name="password"
@@ -73,7 +75,7 @@ export default function SigninForm() {
         </div>
 
         <p className="text-center">
-          Don't have an account? <a href="#">Sign up!</a>
+          Don't have an account? <a onClick={()=>{ navigate("/SignupPage")}}>Sign up!</a>
         </p>
 
         <div>

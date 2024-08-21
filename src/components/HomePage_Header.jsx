@@ -12,12 +12,13 @@ const Header = () => {
       <button
         className="bg-red-500 text-white text-base p-2 px-5 rounded-lg"
         onClick={() => {
-          navigate("/");
-          localStorage.clear();
+          navigate("/EditProfile");
+         
         }}
       >
-        Log Out
+        edit profile
       </button>
+      
     </header>
   );
 };

@@ -43,3 +43,26 @@ export async function signupApi(data) {
     console.log("Error:", error);
   }
 }
+export async function updateUserDataApi(data, token) {
+  try {
+    console.log(data);
+
+    const response = await fetch(`${config.apiBaseUrl}/api/user`, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+    const dataFromApi = await response.json();
+
+    if (response.ok) {
+      console.log("sign up success");
+    } else {
+      return dataFromApi.message;
+    }
+  } catch (error) {
+    console.log("Error:", error);
+  }
+}
