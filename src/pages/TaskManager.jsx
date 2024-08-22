@@ -3,7 +3,7 @@ import Header from "../components/HomePage_Header"; // Import the header compone
 import TaskList from "../components/TaskList"; // Import the task list component
 import TaskModal from "../components/Taskmodal"; // Import the task modal component
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
-
+import config from "../config/index.js";
 const TaskManager = () => {
   // State to hold the list of tasks
   const [tasks, setTasks] = useState([]);
@@ -24,11 +24,11 @@ const TaskManager = () => {
     const fetchTasks = async () => {
       try {
         const token = localStorage.getItem("token"); // Get the token from local storage
-        const username = "user18"; // Username to be passed as a query parameter
+        
 
         // Fetch tasks from the API
         const response = await fetch(
-          `http://localhost:3000/api/tasks?username=${username}`,
+          `${config.apiBaseUrl}/api/tasks`,
           {
             method: "GET", // Use GET method
             headers: {
