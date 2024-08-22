@@ -20,7 +20,7 @@ const TaskModal = ({ isOpen, onClose, task }) => {
   const formattedDate = new Date(task.taskdate).toLocaleDateString();
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-10">
       {/* Modal background with a semi-transparent black overlay */}
       <div className="bg-white p-8 rounded-2xl shadow-lg max-w-3xl w-full">
         {/* Modal content container */}
@@ -38,7 +38,7 @@ const TaskModal = ({ isOpen, onClose, task }) => {
         {/* Days until due */}
         <button
           onClick={onClose} // Call onClose function when the button is clicked
-          className="bg-blue-500 text-white py-2 px-4 w-full rounded"
+          className="bg-blue-500 text-white py-2 px-4 w-full rounded-lg"
         >
           Close {/* Button text */}
         </button>
