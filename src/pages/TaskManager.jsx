@@ -4,6 +4,7 @@ import TaskList from "../components/TaskList"; // Import the task list component
 import TaskModal from "../components/Taskmodal"; // Import the task modal component
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import config from "../config/index.js";
+
 const TaskManager = () => {
   // State to hold the list of tasks
   const [tasks, setTasks] = useState([]);
@@ -18,6 +19,9 @@ const TaskManager = () => {
 
   // State to control the visibility of the modal
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // State to track the active button
+  const [activeButton, setActiveButton] = useState(null);
 
   // Effect to fetch tasks from the API on component mount
   useEffect(() => {
@@ -155,35 +159,62 @@ const TaskManager = () => {
     setSelectedTask(null); // Reset the selected task
   };
 
+  // Function to handle button clicks
+  const handleButtonClick = (buttonId) => {
+    setActiveButton(buttonId); // Set the active button
+  };
+
   return (
-    <div>
+    <div className="flex flex-col ">
+      {" "}
+      {/* Add flex-col and items-center for centering */}
       <Header /> {/* Render the header component */}
-      <div className="flex  ">
-        <div className="w-1/4 flex flex-col gap-4 m-6 mr-0 border-2xl border-gray-200">
-          <button
-            onClick={addTask} // Call addTask when clicked
-            className="w-full bg-blue-500 text-white py-3 rounded-xl hover:bg-blue-600 transition-colors text-lg"
-          >
-            Add Task
-          </button>
-          <button
-            onClick={() => scrollToSection(tasksDueRef)} // Call scrollToUpcomingTasks when clicked
-            className="w-full bg-blue-500 text-white py-3 rounded-xl hover:bg-blue-600 transition-colors text-lg"
-          >
-            Tasks Due
-          </button>
-          <button
-            onClick={() => scrollToSection(pastDueTasksRef)} // Call scrollToCompletedTasks when clicked
-            className="w-full bg-blue-500 text-white py-3 rounded-xl hover:bg-blue-600 transition-colors text-lg"
-          >
-            Past Due
-          </button>
-          <button
-            onClick={() => scrollToSection(completedTasksRef)} // Call scrollToCompletedTasks when clicked
-            className="w-full bg-blue-500 text-white py-3 rounded-xl hover:bg-blue-600 transition-colors text-lg"
-          >
-            Completed Tasks
-          </button>
+      <div className="flex p-6 flex-col lg:flex-row ">
+        {" "}
+        {/* Change flex direction to column for md screens and below */}
+        <div className="w-full flex flex-col gap-4 p-6  border-2xl border-gray-200 lg:w-1/4 lg:p-0 lg:m-6">
+          <div className="">
+            {/* Apply w-full for screens smaller than lg */}
+            <button
+              onClick={addTask} // Call addTask when clicked
+              className="w-full bg-blue-500 text-white py-3 rounded-xl hover:bg-blue-600 transition-colors mb-4 text-lg"
+            >
+              Add Task
+            </button>
+            <button
+              onClick={() => {
+                handleButtonClick("tasksDue"); // Set active button
+                scrollToSection(tasksDueRef); // Scroll to Tasks Due
+              }}
+              className={`w-full py-3 rounded-xl hover:bg-slate-300 transition-colors text-left pl-6 text-lg mb-2 border-2  ${
+                activeButton === "tasksDue" ? " bg-gray-300" : ""
+              }`}
+            >
+              Tasks Due
+            </button>
+            <button
+              onClick={() => {
+                handleButtonClick("pastDue"); // Set active button
+                scrollToSection(pastDueTasksRef); // Scroll to Past Due
+              }}
+              className={`w-full py-3 rounded-xl hover:bg-gray-300 transition-colors text-left pl-6 text-lg mb-2 border-2${
+                activeButton === "pastDue" ? " bg-gray-300" : ""
+              }`}
+            >
+              Past Due
+            </button>
+            <button
+              onClick={() => {
+                handleButtonClick("completedTasks"); // Set active button
+                scrollToSection(completedTasksRef); // Scroll to Completed Tasks
+              }}
+              className={`w-full py-3 rounded-xl   hover:bg-gray-300 transition-colors text-left pl-6 text-lg mb-2 border-2${
+                activeButton === "completedTasks" ? " bg-gray-300" : ""
+              }`}
+            >
+              Completed Tasks
+            </button>
+          </div>
         </div>
         <TaskList
           incompleteTasks={incompleteTasks} // Pass incomplete tasks to TaskList
