@@ -32,6 +32,17 @@ const TaskItem = ({
     }
   };
 
+  // Function to format the task date
+  const formatDate = (date) => {
+    // Convert the date string to a Date object
+    const dateObj = new Date(date);
+
+    const year = dateObj.getFullYear(); // Get the full year
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0"); // Get month (zero-based) and pad with zero
+    const day = String(dateObj.getDate()).padStart(2, "0"); // Get day and pad with zero
+    return `${year}-${month}-${day}`; // Return formatted date string
+  };
+
   return (
     <div
       className={`${
@@ -65,8 +76,12 @@ const TaskItem = ({
         </p>
       </div>
       <div className="flex items-center gap-2">
-        <p>{getDisplayText(task.taskdate)}</p>{" "}
-        {/* Display days left or passed */}
+        {/* Display the due date if the task is completed, otherwise display days left or passed */}
+        {task.is_completed ? (
+          <p>{formatDate(task.taskdate)}</p>
+        ) : (
+          <p>{getDisplayText(task.taskdate)}</p>
+        )}
         <input
           type="checkbox"
           checked={task.is_completed} // Checkbox reflects completion status
