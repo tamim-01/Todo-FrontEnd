@@ -24,19 +24,15 @@ const TaskManager = () => {
     const fetchTasks = async () => {
       try {
         const token = localStorage.getItem("token"); // Get the token from local storage
-        
 
         // Fetch tasks from the API
-        const response = await fetch(
-          `${config.apiBaseUrl}/api/tasks`,
-          {
-            method: "GET", // Use GET method
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // Include token in the request header
-            },
-          }
-        );
+        const response = await fetch(`${config.apiBaseUrl}/api/tasks`, {
+          method: "GET", // Use GET method
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Include token in the request header
+          },
+        });
 
         // Check if the response is OK (status code 200-299)
         if (response.ok) {
@@ -162,7 +158,7 @@ const TaskManager = () => {
   return (
     <div>
       <Header /> {/* Render the header component */}
-      <div className="flex h-full bg-gray-50">
+      <div className="flex  ">
         <div className="w-1/4 flex flex-col gap-4 m-6 mr-0 border-2xl border-gray-200">
           <button
             onClick={addTask} // Call addTask when clicked
