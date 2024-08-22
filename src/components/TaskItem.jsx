@@ -1,5 +1,6 @@
 import React from "react"; // Import React
 import { Trash2, PenSquare } from "lucide-react"; // Import icons from lucide-react
+import { Task } from "@mui/icons-material";
 
 const TaskItem = ({
   task, // Prop to receive the task object
@@ -75,10 +76,15 @@ const TaskItem = ({
           {task.description} {/* Display the task description */}
         </p>
       </div>
-      <div className="flex items-center gap-2">
+      <div className={`flex items-center gap-2 min-w-fit  `}>
         {/* Display the due date if the task is completed, otherwise display days left or passed */}
         {task.is_completed ? (
-          <p>{formatDate(task.taskdate)}</p>
+          <p
+            className="
+          line-through text-gray-500"
+          >
+            {formatDate(task.taskdate)}
+          </p>
         ) : (
           <p>{getDisplayText(task.taskdate)}</p>
         )}
