@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react"; // Import React and necessar
 import Header from "../components/header"; // Import the Header component
 import { DayPicker, getDefaultClassNames } from "react-day-picker"; // Import DayPicker for date selection
 import { useLocation } from "react-router-dom"; // Import useLocation to access route state
+import { useNavigate } from "react-router-dom";
 
 import "react-day-picker/style.css"; // Import DayPicker styles
 
 const Edittask = () => {
   const location = useLocation(); // Get the location object from the router
   const { task } = location.state || {}; // Retrieve the task data from the state, default to an empty object
+  const navigate = useNavigate();
 
   // State to manage the selected date, title, and description
   const [selected, setSelected] = useState(
@@ -49,6 +51,7 @@ const Edittask = () => {
       if (response.ok) {
         console.log("Task updated successfully"); // Log success message
         // Clear the form fields or redirect as needed (not implemented here)
+        navigate("/taskmanager");
       } else {
         console.error("Error updating task:", response.statusText); // Log error message
       }

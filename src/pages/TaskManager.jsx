@@ -9,7 +9,8 @@ const TaskManager = () => {
   const [tasks, setTasks] = useState([]);
 
   // Refs to scroll to upcoming and completed tasks sections
-  const upcomingTasksRef = useRef(null);
+  const tasksDueRef = useRef(null);
+  const pastDueTasksRef = useRef(null);
   const completedTasksRef = useRef(null);
 
   // State to hold the selected task for the modal
@@ -137,21 +138,12 @@ const TaskManager = () => {
     console.log("Toggle task completion for id:", id); // Log the toggle action
   };
 
-  // Function to scroll to the upcoming tasks section
-  const scrollToUpcomingTasks = () => {
-    if (upcomingTasksRef.current) {
-      upcomingTasksRef.current.scrollIntoView({ behavior: "smooth" }); // Smoothly scroll to the upcoming tasks section
+  // Function to scroll to a specific section
+  const scrollToSection = (ref) => {
+    if (ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth" }); // Smoothly scroll to the upcoming tasks section
     } else {
-      console.warn("Upcoming tasks section does not exist."); // Log a warning if the section does not exist
-    }
-  };
-
-  // Function to scroll to the completed tasks section
-  const scrollToCompletedTasks = () => {
-    if (completedTasksRef.current) {
-      completedTasksRef.current.scrollIntoView({ behavior: "smooth" }); // Smoothly scroll to the completed tasks section
-    } else {
-      console.warn("Completed tasks section does not exist."); // Log a warning if the section does not exist
+      console.warn("Section does not exist."); // Log a warning if the section does not exist
     }
   };
 
@@ -179,13 +171,19 @@ const TaskManager = () => {
             Add Task
           </button>
           <button
-            onClick={scrollToUpcomingTasks} // Call scrollToUpcomingTasks when clicked
+            onClick={() => scrollToSection(tasksDueRef)} // Call scrollToUpcomingTasks when clicked
             className="w-full bg-blue-500 text-white py-3 rounded-xl hover:bg-blue-600 transition-colors text-lg"
           >
-            Upcoming
+            Tasks Due
           </button>
           <button
-            onClick={scrollToCompletedTasks} // Call scrollToCompletedTasks when clicked
+            onClick={() => scrollToSection(pastDueTasksRef)} // Call scrollToCompletedTasks when clicked
+            className="w-full bg-blue-500 text-white py-3 rounded-xl hover:bg-blue-600 transition-colors text-lg"
+          >
+            Past Due
+          </button>
+          <button
+            onClick={() => scrollToSection(completedTasksRef)} // Call scrollToCompletedTasks when clicked
             className="w-full bg-blue-500 text-white py-3 rounded-xl hover:bg-blue-600 transition-colors text-lg"
           >
             Completed Tasks
@@ -198,8 +196,9 @@ const TaskManager = () => {
           onEditTask={editTask} // Pass editTask function to TaskList
           onToggleTaskCompletion={toggleTaskCompletion} // Pass toggleTaskCompletion function to TaskList
           onOpenModal={openModal} // Pass openModal function to TaskList
-          upcomingTasksRef={upcomingTasksRef} // Pass ref for upcoming tasks section
-          completedTasksRef={completedTasksRef} // Pass ref for completed tasks section
+          tasksDueRef={tasksDueRef}
+          pastDueTasksRef={pastDueTasksRef}
+          completedTasksRef={completedTasksRef}
         />
       </div>
       <TaskModal
