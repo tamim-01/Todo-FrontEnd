@@ -37,13 +37,13 @@ const TaskItem = ({
       className={`${
         task.is_completed ? "bg-gray-100" : "bg-white"
       } p-4 rounded-lg shadow-md flex items-center justify-between`}
-      onClick={() => onOpenModal(task)} // Open modal on task click
     >
-      <div>
+      <div onClick={() => onOpenModal(task)} className="flex flex-col">
         <h3
           className={`font-medium text-xl mb-1 ${
             task.is_completed ? "line-through text-gray-500" : ""
           }`}
+          style={{ marginRight: "1rem" }} // Add margin to the right of the title
         >
           {task.title} {/* Display the task title */}
         </h3>
@@ -51,6 +51,15 @@ const TaskItem = ({
           className={`text-lg ${
             task.is_completed ? "line-through text-gray-400" : "text-gray-600"
           }`}
+          style={{
+            // Limit the description to two lines
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            marginRight: "1rem", // Add margin to the right of the description
+          }}
         >
           {task.description} {/* Display the task description */}
         </p>
