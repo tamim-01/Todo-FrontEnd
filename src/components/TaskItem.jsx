@@ -1,6 +1,5 @@
 import React from "react"; // Import React
 import { Trash2, PenSquare } from "lucide-react"; // Import icons from lucide-react
-import { Task } from "@mui/icons-material";
 
 const TaskItem = ({
   task, // Prop to receive the task object
