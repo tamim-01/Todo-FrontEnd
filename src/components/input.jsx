@@ -5,10 +5,10 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-export function Input({ error, type, id, name, style, placeholder, onChangeHandler, stateValue }) {
+export function Input({ error, type, id, name, style, placeholder, onChangeHandler, stateValue,required }) {
     return (
         <TextField
-            required
+            required={required}
             error={error}
             id={id || "outlined-required"}
             label={name}
@@ -22,7 +22,7 @@ export function Input({ error, type, id, name, style, placeholder, onChangeHandl
     );
 }
 
-export function PasswordInput({ error, id, name, placeholder, onChangeHandler, stateValue }) {
+export function PasswordInput({ error, id, name, placeholder, onChangeHandler, stateValue ,required}) {
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -33,7 +33,7 @@ export function PasswordInput({ error, id, name, placeholder, onChangeHandler, s
 
     return (
         <TextField
-            required
+            required={required}
             error={error}
             id={id || "outlined-password-input"}
             label={name}
