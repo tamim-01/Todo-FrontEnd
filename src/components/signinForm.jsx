@@ -75,7 +75,7 @@ export default function SigninForm() {
         </div>
 
         <p className="text-center">
-          Don't have an account? <a onClick={()=>{ navigate("/SignupPage")}}>Sign up!</a>
+          Don't have an account? <a className="text-blue-700 cursor-pointer" onClick={()=>{ navigate("/SignupPage")}}>Sign up!</a>
         </p>
 
         <div>

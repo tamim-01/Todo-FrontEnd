@@ -1,8 +1,7 @@
 import ProfileHeader from '../components/profileHeader.jsx';
 import { EditProfileForm } from '../components/editProfileForm.jsx';
-import { useNavigate, useNavigation } from 'react-router-dom';
 const ProfilePage = () => {
-    const navigate = useNavigate();
+    
     return (
         <div className="min-w-[320px]">
             <ProfileHeader />
