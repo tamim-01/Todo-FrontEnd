@@ -97,7 +97,7 @@ export default function SignupForm() {
           setAlert(<Alert severity="error">Username is already selected. Choose another username</Alert>);
         } else {
           setAlert(<Alert severity="success">Sign up was successful</Alert>);
-          navigate("/");
+          navigate("/SigninPage");
         }
       } catch (err) {
         console.error("Error during signup:", err);
@@ -160,7 +160,7 @@ export default function SignupForm() {
         </div>
         
         <p className="text-center">
-          Do you have an account? <a  onClick={()=>{ navigate("/")}}>Sign in!</a>
+          Do you have an account? <a className="text-blue-700 cursor-pointer" onClick={()=>{ navigate("/SigninPage")}}>Sign in!</a>
         </p>
 
         <div>

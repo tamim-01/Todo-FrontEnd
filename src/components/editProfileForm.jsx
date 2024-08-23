@@ -70,7 +70,11 @@ export function EditProfileForm() {
   };
 
   const validateConfirmPassword = (password, confirmPassword) => {
-    if (password.length > 0 && confirmPassword.length > 0 && password !== confirmPassword) {
+    if (
+      password.length > 0 &&
+      confirmPassword.length > 0 &&
+      password !== confirmPassword
+    ) {
       return "Passwords do not match.";
     }
     return "";
@@ -108,51 +112,52 @@ export function EditProfileForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const usernameError = validateUsername(formData.username);
     const passwordError = validatePassword(formData.password);
     const confirmPasswordError = validateConfirmPassword(
       formData.password,
       formData.confirmPassword
     );
-  
+
     setErrors({
       username: usernameError,
       password: passwordError,
       confirmPassword: confirmPasswordError,
     });
-  
-    if (!usernameError && (!passwordError || formData.password.length === 0) && (!confirmPasswordError || formData.password.length === 0)) {
+
+    if (
+      !usernameError &&
+      (!passwordError || formData.password.length === 0) &&
+      (!confirmPasswordError || formData.password.length === 0)
+    ) {
       try {
         const token = localStorage.getItem("token");
         const requestData = {};
-  
+
         if (formData.username) {
           requestData.username = formData.username;
         }
-  
+
         if (formData.password) {
           requestData.password = formData.password;
         }
-  
+
         if (formData.selectedAvatar) {
           requestData.avatar_src = formData.selectedAvatar;
         }
-  
+
         const response = await updateUserDataApi(requestData, token);
-  
+
         if (response) {
-          setAlert(
-            <Alert severity="error">
-              {response}
-            </Alert>
-          );
+          setAlert(<Alert severity="error">{response}</Alert>);
         } else {
           setAlert(
-            <Alert severity="success">your changes submitted successfully</Alert>
-           
+            <Alert severity="success">
+              your changes submitted successfully
+            </Alert>
           );
-          navigate("/");
+          navigate("/SigninPage");
         }
       } catch (err) {
         console.error("Error during update:", err);
@@ -287,23 +292,23 @@ export function EditProfileForm() {
                                 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
                                 ${
                                   !!errors.username ||
-                                  (!!errors.password && formData.password.length > 0) ||
-                                  (!!errors.confirmPassword && formData.password.length > 0)
+                                  (!!errors.password &&
+                                    formData.password.length > 0) ||
+                                  (!!errors.confirmPassword &&
+                                    formData.password.length > 0)
                                     ? "opacity-50 cursor-not-allowed"
                                     : ""
                                 }`}
               />
-                   <Button
-                   type={"reset"}
-        style=" w-1/2 ml-2 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white 
+              <Button
+                type={"reset"}
+                style=" w-1/2 ml-2 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white 
                                 bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                                onClickHandler={() => {
-          navigate("/taskmanager");
-        }}
-        text={"Cancel"}
-      />
-        
-      
+                onClickHandler={() => {
+                  navigate("/taskmanager");
+                }}
+                text={"Cancel"}
+              />
             </div>
           </form>
         </div>

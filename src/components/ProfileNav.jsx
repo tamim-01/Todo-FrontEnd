@@ -55,7 +55,7 @@ const ProfileNav = ({ profileImage, editeProfile, logout }) => {
           
           <li
             onClick={() => {
-              navigate("/");
+              navigate("/SigninPage");
               localStorage.clear();
               setIsOpen(false);
             }}
