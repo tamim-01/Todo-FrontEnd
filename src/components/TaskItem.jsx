@@ -47,11 +47,11 @@ const TaskItem = ({
     <div
       className={`${
         task.is_completed ? "bg-gray-100" : "bg-white"
-      } p-4 rounded-lg shadow-md flex items-center justify-between`}
+      } p-4 rounded-lg shadow-md flex flex-col md:flex-row items-start md:items-center justify-between`}
     >
-      <div onClick={() => onOpenModal(task)} className="flex flex-col">
+      <div onClick={() => onOpenModal(task)} className="flex-1 flex flex-col mb-4 md:mb-0">
         <h3
-          className={`font-medium text-xl mb-1 ${
+          className={`font-medium text-lg md:text-xl mb-1 ${
             task.is_completed ? "line-through text-gray-500" : ""
           }`}
           style={{ marginRight: "1rem" }} // Add margin to the right of the title
@@ -59,7 +59,7 @@ const TaskItem = ({
           {task.title} {/* Display the task title */}
         </h3>
         <p
-          className={`text-lg ${
+          className={`text-sm md:text-lg ${
             task.is_completed ? "line-through text-gray-400" : "text-gray-600"
           }`}
           style={{
@@ -75,13 +75,10 @@ const TaskItem = ({
           {task.description} {/* Display the task description */}
         </p>
       </div>
-      <div className={`flex items-center gap-2 min-w-fit  `}>
+      <div className="flex items-center gap-2 min-w-fit">
         {/* Display the due date if the task is completed, otherwise display days left or passed */}
         {task.is_completed ? (
-          <p
-            className="
-          line-through text-gray-500"
-          >
+          <p className="line-through text-gray-500">
             {formatDate(task.taskdate)}
           </p>
         ) : (
@@ -100,16 +97,16 @@ const TaskItem = ({
             onEdit(task.id); // Call the edit function
           }}
         >
-          <PenSquare size={24} /> {/* Edit icon */}
+          <PenSquare size={24} />
         </button>
         <button
           className="text-red-500 hover:text-red-700 -ml-0.5"
           onClick={(e) => {
-            e.stopPropagation(); // Prevent triggering the modal
+            e.stopPropagation(); 
             onDelete(task.id); // Call the delete function
           }}
         >
-          <Trash2 size={24} /> {/* Delete icon */}
+          <Trash2 size={24} />
         </button>
       </div>
     </div>
