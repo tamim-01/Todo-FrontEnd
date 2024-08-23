@@ -3,7 +3,7 @@ import Header from "../components/header"; // Import the Header component
 import { DayPicker, getDefaultClassNames } from "react-day-picker"; // Import DayPicker for date selection
 import { useLocation } from "react-router-dom"; // Import useLocation to access route state
 import { useNavigate } from "react-router-dom";
-
+import config from "./../config/index.js"
 import "react-day-picker/style.css"; // Import DayPicker styles
 
 const Edittask = () => {
@@ -36,7 +36,7 @@ const Edittask = () => {
     try {
       // Send a PUT request to update the task
       const response = await fetch(
-        `http://localhost:3000/api/tasks/${task.id}`,
+        `${config.apiBaseUrl}/api/tasks/${task.id}`,
         {
           method: "PUT", // Use PUT method to update the task
           headers: {

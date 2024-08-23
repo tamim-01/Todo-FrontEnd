@@ -3,7 +3,7 @@ import Header from "../components/header";
 import { DayPicker, getDefaultClassNames } from "react-day-picker";
 import "react-day-picker/style.css";
 import { useNavigate } from "react-router-dom";
-
+import config from "./../config/index.js"
 const Addtask = () => {
   const [selected, setSelected] = useState(new Date());
   const [title, setTitle] = useState("");
@@ -24,7 +24,7 @@ const Addtask = () => {
     const taskdate = formatDate(selected); // Use the correct key here
 
     try {
-      const response = await fetch("http://localhost:3000/api/tasks", {
+      const response = await fetch(`${config.apiBaseUrl}/api/tasks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
