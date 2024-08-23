@@ -71,7 +71,7 @@ const TaskManager = () => {
   const deleteTask = async (id) => {
     try {
       const token = localStorage.getItem("token"); // Get the token from local storage
-      const response = await fetch(`http://localhost:3000/api/tasks/${id}`, {
+      const response = await fetch(`${config.apiBaseUrl}/api/tasks/${id}`, {
         method: "DELETE", // Use DELETE method
         headers: {
           "Content-Type": "application/json",
@@ -104,7 +104,7 @@ const TaskManager = () => {
   const toggleTaskCompletion = async (id) => {
     try {
       const token = localStorage.getItem("token"); // Get the token from local storage
-      const response = await fetch(`http://localhost:3000/api/tasks/${id}`, {
+      const response = await fetch(`${config.apiBaseUrl}/api/tasks/${id}`, {
         method: "PUT", // Use PUT method to update the task
         headers: {
           "Content-Type": "application/json",
