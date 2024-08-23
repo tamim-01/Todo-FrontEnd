@@ -10,14 +10,7 @@ const ProfilePage = () => {
                 
                    
                         <div className='flex flex-row justify-between'>  <h2 className="text-2xl text-center md:text-left md:ml-12 font-semibold mb-6">Edit your profile</h2>
-                        <button
-        className="bg-red-500 text-white text-base h-8 px-5 rounded-lg"
-        onClick={() => {
-          navigate("/taskmanager");
-        }}
-      >
-        Cancel
-      </button></div>
+                   </div>
                       
                         <EditProfileForm />
                     

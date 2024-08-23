@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import TaskItem from "./TaskItem"; // Import the TaskItem component
 
 const TaskList = ({
@@ -12,16 +12,33 @@ const TaskList = ({
   pastDueTasksRef, // Prop to receive ref for past due tasks section
   completedTasksRef, // Prop to receive ref for completed tasks section
 }) => {
+  // Helper function to set time of a date object to midnight
+  const setToMidnight = (date) => {
+    const newDate = new Date(date);
+    newDate.setHours(0, 0, 0, 0);
+    return newDate;
+  };
+
   // Filter tasks into tasks due, past due, and completed
-  const tasksDueTasks = incompleteTasks.filter((task) => {
-    const taskDate = new Date(task.taskdate);
-    const today = new Date();
-    return taskDate > today;
-  });
+  const tasksDueTasks = incompleteTasks
+    .filter((task) => {
+      const taskDate = setToMidnight(new Date(task.taskdate));
+      const today = setToMidnight(new Date());
+      return taskDate >= today; // Include today's tasks in upcoming
+    })
+    .sort((a, b) => {
+      const aDate = setToMidnight(new Date(a.taskdate));
+      const bDate = setToMidnight(new Date(b.taskdate));
+      const today = setToMidnight(new Date());
+
+      if (aDate.getTime() === today.getTime()) return -1; // 'a' is today, move it up
+      if (bDate.getTime() === today.getTime()) return 1;  // 'b' is today, move it up
+      return aDate - bDate; // Otherwise, sort by date
+    });
 
   const pastDueTasks = incompleteTasks.filter((task) => {
-    const taskDate = new Date(task.taskdate);
-    const today = new Date();
+    const taskDate = setToMidnight(new Date(task.taskdate));
+    const today = setToMidnight(new Date());
     return taskDate < today;
   });
 

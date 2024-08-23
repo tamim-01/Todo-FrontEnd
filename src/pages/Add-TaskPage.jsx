@@ -98,13 +98,21 @@ const Addtask = () => {
               />
             </div>
           </div>
-          <div className="mt-8 sm:mt-10 flex justify-center">
+          <div className="mt-8 w-full lg:w-1/2 sm:mt-10 flex justify-center">
             <button
-              onClick={handleSubmit}
-              className="bg-blue-500 text-white px-4 py-3 rounded-lg w-full sm:w-2/3 text-lg"
+              onClick={handleSubmit} // Call handleSubmit when the button is clicked
+              className="bg-blue-500 text-white px-4 py-3 rounded-lg w-1/2 mr-1 text-lg"
             >
-              Confirm
+              Confirm {/* Button text */}
             </button>
+            <button
+           className="bg-red-500 w-1/2 text-white text-base p-2 px-5 ml-1 rounded-lg"
+           onClick={() => {
+          navigate("/taskmanager");
+        }}
+      >
+        Cancel
+      </button>
           </div>
         </div>
       </div>

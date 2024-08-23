@@ -4,7 +4,7 @@ import TaskList from "../components/TaskList"; // Import the task list component
 import TaskModal from "../components/Taskmodal"; // Import the task modal component
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import config from "../config/index.js";
-
+import { ArrowUp } from "lucide-react";
 const TaskManager = () => {
   // State to hold the list of tasks
   const [tasks, setTasks] = useState([]);
@@ -166,38 +166,49 @@ const TaskManager = () => {
 
   return (
     <div className="flex flex-col ">
-      {" "}
-      {/* Add flex-col and items-center for centering */}
-      <Header /> {/* Render the header component */}
+    
+     
+      <Header />
       <div className="flex p-6 flex-col lg:flex-row ">
-        {" "}
-        {/* Change flex direction to column for md screens and below */}
-        <div className="w-full flex flex-col gap-4 p-6  border-2xl border-gray-200 lg:w-1/4 lg:p-0 lg:m-6">
-          <div className="">
-            {/* Apply w-full for screens smaller than lg */}
+       
+            <div className="flex flex-row justify-center fixed bottom-2 right-2"> <button
+             onClick={() => {
+              handleButtonClick("tasksDue"); // Set active button
+              scrollToSection(tasksDueRef); // Scroll to Tasks Due
+            }} 
+              className=" bg-blue-500 mx-2  text-white p-1 rounded-xl hover:bg-blue-600 transition-colors mb-4 text-lg"
+            >
+              <ArrowUp size={"20px"}/>
+            </button>
             <button
               onClick={addTask} // Call addTask when clicked
-              className="w-full bg-blue-500 text-white py-3 rounded-xl hover:bg-blue-600 transition-colors mb-4 text-lg"
+              className=" w-40 bg-blue-500 text-white py-2 rounded-xl hover:bg-blue-600 transition-colors mb-4 text-lg"
             >
               Add Task
             </button>
+           
+            </div>
+            
+        <div className="w-full flex flex-col  gap-4 border-2xl border-gray-200 lg:w-1/4 lg:p-0 lg:m-6">
+          <div className="flex flex-row lg:flex-col">
+            
             <button
               onClick={() => {
                 handleButtonClick("tasksDue"); // Set active button
                 scrollToSection(tasksDueRef); // Scroll to Tasks Due
               }}
-              className={`w-full py-3 rounded-xl hover:bg-slate-300 transition-colors text-left pl-6 text-lg mb-2 border-2  ${
+              className={`w-full py-2 rounded-xl   hover:bg-gray-300 transition-colors text-left text-center text-sm mb-2 border-2${
                 activeButton === "tasksDue" ? " bg-gray-300" : ""
               }`}
             >
-              Tasks Due
+             Upcoming
             </button>
             <button
               onClick={() => {
                 handleButtonClick("pastDue"); // Set active button
                 scrollToSection(pastDueTasksRef); // Scroll to Past Due
               }}
-              className={`w-full py-3 rounded-xl hover:bg-gray-300 transition-colors text-left pl-6 text-lg mb-2 border-2${
+              className={`w-full py-2 rounded-xl   hover:bg-gray-300 transition-colors text-left text-center text-sm mb-2 border-2${
                 activeButton === "pastDue" ? " bg-gray-300" : ""
               }`}
             >
@@ -208,11 +219,11 @@ const TaskManager = () => {
                 handleButtonClick("completedTasks"); // Set active button
                 scrollToSection(completedTasksRef); // Scroll to Completed Tasks
               }}
-              className={`w-full py-3 rounded-xl   hover:bg-gray-300 transition-colors text-left pl-6 text-lg mb-2 border-2${
+              className={`w-full py-2 rounded-xl   hover:bg-gray-300 transition-colors text-left text-center text-sm mb-2 border-2${
                 activeButton === "completedTasks" ? " bg-gray-300" : ""
               }`}
             >
-              Completed Tasks
+              Completed
             </button>
           </div>
         </div>

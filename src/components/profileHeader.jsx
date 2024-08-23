@@ -1,7 +1,29 @@
 import { useNavigate } from "react-router-dom";
-
+import { useState, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
+import ProfileNav from "./ProfileNav";
 export default function ProfileHeader() {
-  const navigate = useNavigate();
+  const [avatar , setAvatar] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      try {
+        // Decode the JWT to get the payload
+        const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
+        setAvatar(decodedToken.avatar)
+        
+
+   
+      } catch (error) {
+        console.error("Invalid token:", error);
+      }
+    } else {
+      console.log("No token found");
+    }
+  }, []);
   return (
     <header className="flex justify-between items-center pt-4 pb-4 px-12 text-lg  mb-32 border-b-2">
       <div className="flex flex-row items-center">
@@ -9,16 +31,7 @@ export default function ProfileHeader() {
         <p className="font-bold text-xl ml-2">Task Manager</p>
       </div>
       
-      <button
-        className="bg-red-500 text-white text-base h-8 px-5 rounded-lg"
-        onClick={() => {
-          navigate("/");
-          localStorage.clear();
-         
-        }}
-      >
-       Log Out
-      </button>
+      <ProfileNav profileImage={avatar} />
     </header>
   );
 }

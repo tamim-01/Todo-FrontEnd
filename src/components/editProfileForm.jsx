@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { updateUserDataApi } from "../model/index.js";
 import Alert from "@mui/material/Alert";
 import { jwtDecode } from "jwt-decode";
-
+import { useNavigate } from "react-router-dom";
 export function EditProfileForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -149,7 +150,9 @@ export function EditProfileForm() {
         } else {
           setAlert(
             <Alert severity="success">your changes submitted successfully</Alert>
+           
           );
+          navigate("/");
         }
       } catch (err) {
         console.error("Error during update:", err);
@@ -229,7 +232,7 @@ export function EditProfileForm() {
                 onChangeHandler={handleChange}
                 type="text"
                 value={formData.username}
-                name="username"
+                name="New username"
                 id="username"
                 placeholder="e.g. jane_doe123"
                 error={!!errors.username}
@@ -243,7 +246,7 @@ export function EditProfileForm() {
                 required={false}
                 onChangeHandler={handleChange}
                 type="password"
-                name="password"
+                name="New password"
                 id="password"
                 value={formData.password}
                 placeholder="Enter your New password"
@@ -258,7 +261,7 @@ export function EditProfileForm() {
                 required={formData.password.length > 0}
                 onChangeHandler={handleChange}
                 type="password"
-                name="confirmPassword"
+                name="Confirm Password"
                 id="confirmPassword"
                 value={formData.confirmPassword}
                 placeholder="Confirm your password"
@@ -271,7 +274,7 @@ export function EditProfileForm() {
               )}
             </div>
 
-            <div>
+            <div className="flex flex-row">
               <Button
                 type="submit"
                 text="Confirm"
@@ -280,7 +283,7 @@ export function EditProfileForm() {
                   (!!errors.password && formData.password.length > 0) ||
                   (!!errors.confirmPassword && formData.password.length > 0)
                 }
-                style={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white 
+                style={`w-1/2 mr-2 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white 
                                 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
                                 ${
                                   !!errors.username ||
@@ -290,6 +293,17 @@ export function EditProfileForm() {
                                     : ""
                                 }`}
               />
+                   <Button
+                   type={"reset"}
+        style=" w-1/2 ml-2 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white 
+                                bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                                onClickHandler={() => {
+          navigate("/taskmanager");
+        }}
+        text={"Cancel"}
+      />
+        
+      
             </div>
           </form>
         </div>
