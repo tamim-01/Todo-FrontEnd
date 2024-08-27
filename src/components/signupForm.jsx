@@ -122,6 +122,7 @@ export default function SignupForm() {
             name="username"
             id="username"
             placeholder="e.g. jane_doe123"
+            label={"username"}
             error={!!errors.username}
           />
           {errors.username && (
@@ -137,6 +138,7 @@ export default function SignupForm() {
             id="password"
             value={formData.password}
             placeholder="Enter your password"
+            label={"password"}
             error={!!errors.password}
           />
           {errors.password && (
@@ -152,6 +154,7 @@ export default function SignupForm() {
             id="confirmPassword"
             value={formData.confirmPassword}
             placeholder="Confirm your password"
+            label={"confirm password"}
             error={!!errors.confirmPassword}
           />
           {errors.confirmPassword && (

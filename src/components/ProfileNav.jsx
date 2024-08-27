@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const ProfileNav = ({ profileImage, editeProfile, logout }) => {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
