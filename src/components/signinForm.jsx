@@ -60,6 +60,8 @@ export default function SigninForm() {
             value={formData.username}
             name="username"
             id="username"
+            label={"username"}
+             placeholder="Enter your username"
           />
         </div>
         <div>
@@ -71,6 +73,7 @@ export default function SigninForm() {
             id="password"
             value={formData.password}
             placeholder="Enter your password"
+            label={"password"}
           />
         </div>
 

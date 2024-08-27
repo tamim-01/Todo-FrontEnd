@@ -237,8 +237,9 @@ export function EditProfileForm() {
                 onChangeHandler={handleChange}
                 type="text"
                 value={formData.username}
-                name="New username"
+                name="username"
                 id="username"
+                label={"new username"}
                 placeholder="e.g. jane_doe123"
                 error={!!errors.username}
               />
@@ -251,7 +252,8 @@ export function EditProfileForm() {
                 required={false}
                 onChangeHandler={handleChange}
                 type="password"
-                name="New password"
+                name="password"
+                label={"new password"}
                 id="password"
                 value={formData.password}
                 placeholder="Enter your New password"
@@ -267,6 +269,7 @@ export function EditProfileForm() {
                 onChangeHandler={handleChange}
                 type="password"
                 name="Confirm Password"
+                label={"confirm password"}
                 id="confirmPassword"
                 value={formData.confirmPassword}
                 placeholder="Confirm your password"
