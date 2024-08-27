@@ -1,10 +1,5 @@
 const config = {
-  development: {
-    apiBaseUrl: "http://localhost:3000",
-  },
-  production: {
-    apiBaseUrl: "",
-  },
+  apiBaseUrl: "http://localhost:3000",
 };
 
-export default config[process.env.NODE_ENV || "development"];
+export default config;
