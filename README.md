@@ -21,5 +21,5 @@ This is the frontend for a Todo List application, providing a user-friendly inte
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
-   cd <repository-name>
+   git clone https://github.com/tamim-01/Todo-FrontEnd
+   cd todo-frontend
