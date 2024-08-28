@@ -14,7 +14,7 @@ This is the frontend for a Todo List application, providing a user-friendly inte
 ## Setup Instructions
 
 ### Prerequisites
-- Node.js (version X.X.X)
+- Node.js (version 20.12.2)
 - Docker (optional, if using Docker for deployment)
 
 ### Installation
