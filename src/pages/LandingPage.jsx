@@ -98,8 +98,8 @@ const LandingPage = () => {
                         <p className="text-gray-600">Monitor your progress and celebrate your achievements.</p>
                     </div>
                     <div className="bg-white p-6 rounded-lg shadow-md">
-                        <h3 className="text-xl font-semibold text-indigo-700 mb-2">Collaborate</h3>
-                        <p className="text-gray-600">Share tasks and work together with your team.</p>
+                        <h3 className="text-xl font-semibold text-indigo-700 mb-2">Clear Your Mind</h3>
+                        <p className="text-gray-600">With managing your tasks have a clear mind and open to good ideas.</p>
                     </div>
                 </div>
             </main>

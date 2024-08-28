@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate for naviga
 
 const Header = () => {
   const navigate = useNavigate();
-  const [avatar , setAvatar] = useState('');
+  const [userdata , setUserdata] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -15,9 +15,9 @@ const Header = () => {
       try {
         // Decode the JWT to get the payload
         const decodedToken = jwtDecode(token);
-        console.log(decodedToken);
-        setAvatar(decodedToken.avatar)
-        
+        setUserdata(decodedToken)
+        // const usernameJwt = decodedToken.username
+        //  return usernameJwt ;
 
    
       } catch (error) {
@@ -37,7 +37,7 @@ const Header = () => {
         <p className="font-bold text-xl ml-2">Task Manager</p>
       </div>
     
-       <ProfileNav editeProfile={true} profileImage={avatar} />
+       <ProfileNav username={userdata.username} editeProfile={true} profileImage={userdata.avatar} />
     </header>
   );
 };

@@ -4,7 +4,8 @@ import { jwtDecode } from "jwt-decode";
 import ProfileNav from "./ProfileNav";
 export default function ProfileHeader() {
   const navigate = useNavigate();
-  const [avatar , setAvatar] = useState('');
+  const [userdata , setUserdata] = useState([]);
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -13,10 +14,12 @@ export default function ProfileHeader() {
       try {
         // Decode the JWT to get the payload
         const decodedToken = jwtDecode(token);
-        console.log(decodedToken);
-        setAvatar(decodedToken.avatar)
+     
+        setUserdata(decodedToken)
+        //  const usernameJwt = decodedToken.username
+        //  return usernameJwt ;
+       
         
-
    
       } catch (error) {
         console.error("Invalid token:", error);
@@ -34,7 +37,7 @@ export default function ProfileHeader() {
         <p className="font-bold text-xl ml-2">Task Manager</p>
       </div>
       
-      <ProfileNav profileImage={avatar} />
+      <ProfileNav profileImage={userdata.avatar}  username={userdata.username} />
     </header>
   );
 }
